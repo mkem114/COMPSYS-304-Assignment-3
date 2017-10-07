@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.8)
+project(CS304A3)
+
+SET(CMAKE_BUILD_TYPE distribution)
+SET(CMAKE_CXX_FLAGS_DISTRIBUTION "-O1")
+SET(CMAKE_C_FLAGS_DISTRIBUTION "-O1")
+
+set(CMAKE_C_STANDARD 99)
+
+set(SOURCE_FILES assignment.c)
+add_executable(CS304A3 ${SOURCE_FILES})
