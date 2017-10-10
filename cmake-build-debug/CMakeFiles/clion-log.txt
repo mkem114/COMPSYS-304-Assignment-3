@@ -1,4 +1,0 @@
-/usr/share/clion/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/mnt/40B8CF05B8CEF904/mkem114/Documents/COMPSYS 304/COMPSYS 304 Assignment 3/CS304A3"
--- Configuring done
--- Generating done
--- Build files have been written to: /mnt/40B8CF05B8CEF904/mkem114/Documents/COMPSYS 304/COMPSYS 304 Assignment 3/CS304A3/cmake-build-debug

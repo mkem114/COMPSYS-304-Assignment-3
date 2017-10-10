@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/CS304A3.dir/assignment.c.o  -o CS304A3 
