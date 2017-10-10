@@ -44,6 +44,8 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/CS304A3.dir/DependInfo.cmake"
-  "CMakeFiles/cachetest1.dir/DependInfo.cmake"
+  "CMakeFiles/buildcache.dir/DependInfo.cmake"
+  "CMakeFiles/buildmatrix.dir/DependInfo.cmake"
+  "CMakeFiles/cleanmatrix.dir/DependInfo.cmake"
+  "CMakeFiles/cleancache.dir/DependInfo.cmake"
   )

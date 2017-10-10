@@ -111,30 +111,56 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named CS304A3
+# Target rules for targets named buildcache
 
 # Build rule for target.
-CS304A3: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 CS304A3
-.PHONY : CS304A3
+buildcache: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 buildcache
+.PHONY : buildcache
 
 # fast build rule for target.
-CS304A3/fast:
-	$(MAKE) -f CMakeFiles/CS304A3.dir/build.make CMakeFiles/CS304A3.dir/build
-.PHONY : CS304A3/fast
+buildcache/fast:
+	$(MAKE) -f CMakeFiles/buildcache.dir/build.make CMakeFiles/buildcache.dir/build
+.PHONY : buildcache/fast
 
 #=============================================================================
-# Target rules for targets named cachetest1
+# Target rules for targets named buildmatrix
 
 # Build rule for target.
-cachetest1: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 cachetest1
-.PHONY : cachetest1
+buildmatrix: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 buildmatrix
+.PHONY : buildmatrix
 
 # fast build rule for target.
-cachetest1/fast:
-	$(MAKE) -f CMakeFiles/cachetest1.dir/build.make CMakeFiles/cachetest1.dir/build
-.PHONY : cachetest1/fast
+buildmatrix/fast:
+	$(MAKE) -f CMakeFiles/buildmatrix.dir/build.make CMakeFiles/buildmatrix.dir/build
+.PHONY : buildmatrix/fast
+
+#=============================================================================
+# Target rules for targets named cleanmatrix
+
+# Build rule for target.
+cleanmatrix: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cleanmatrix
+.PHONY : cleanmatrix
+
+# fast build rule for target.
+cleanmatrix/fast:
+	$(MAKE) -f CMakeFiles/cleanmatrix.dir/build.make CMakeFiles/cleanmatrix.dir/build
+.PHONY : cleanmatrix/fast
+
+#=============================================================================
+# Target rules for targets named cleancache
+
+# Build rule for target.
+cleancache: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 cleancache
+.PHONY : cleancache
+
+# fast build rule for target.
+cleancache/fast:
+	$(MAKE) -f CMakeFiles/cleancache.dir/build.make CMakeFiles/cleancache.dir/build
+.PHONY : cleancache/fast
 
 # Help Target
 help:
@@ -144,8 +170,10 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... CS304A3"
-	@echo "... cachetest1"
+	@echo "... buildcache"
+	@echo "... buildmatrix"
+	@echo "... cleanmatrix"
+	@echo "... cleancache"
 .PHONY : help
 
 
