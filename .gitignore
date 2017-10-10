@@ -1,0 +1,7 @@
+/cmake-build-debug
+*.o
+cachetest1
+cachetest2
+matrix1
+matrix2
+matrix3

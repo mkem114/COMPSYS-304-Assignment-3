@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.8)
-project(CS304A3)
+project(CS304)
 
-SET(CMAKE_BUILD_TYPE distribution)
-SET(CMAKE_CXX_FLAGS_DISTRIBUTION "-O1")
-SET(CMAKE_C_FLAGS_DISTRIBUTION "-O1")
+add_custom_target(cachetest1 COMMAND make -C ${cachetest1_SOURCE_DIR}
+        CLION_EXE_DIR=${PROJECT_BINARY_DIR})
 
-set(CMAKE_C_STANDARD 99)
+set(SOURCE_FILES cachetest1.c)
 
-set(SOURCE_FILES assignment.c)
 add_executable(CS304A3 ${SOURCE_FILES})
