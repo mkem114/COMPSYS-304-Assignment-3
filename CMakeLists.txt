@@ -6,6 +6,9 @@ add_custom_target(cleancache
 add_custom_target(cleanmatrix
         COMMAND make clean
         WORKING_DIRECTORY ${CS304_SOURCE_DIR}/CS304-A3-mkem114-6273632/task_2)
+add_custom_target(cleantex
+        COMMAND rm -f assignment3_answer.aux assignment3_answer.log assignment3_answer.synctex.gz
+        WORKING_DIRECTORY ${CS304_SOURCE_DIR})
 add_custom_target(buildcache
         COMMAND make
         WORKING_DIRECTORY ${CS304_SOURCE_DIR}/CS304-A3-mkem114-6273632/task_1)
@@ -20,4 +23,4 @@ set(SOURCE_FILES
         CS304-A3-mkem114-6273632/task_2/matrix2.c
         CS304-A3-mkem114-6273632/task_2/matrix3.c)
 
-add_executable(my_executable ${SOURCE_FILES})
+add_executable(BLANK ${SOURCE_FILES})

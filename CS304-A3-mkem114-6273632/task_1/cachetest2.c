@@ -57,11 +57,20 @@ int main(int argc, char *argv[]) {
     /* allocate memory for arrays; examples, adjust for task */
     //a = malloc (N * sizeof(int));
     a = malloc(N * sizeof(int));
+    int *b = malloc(N * sizeof(int));
     int count = 0;
 
     /* initialise arrray elements */
-    for (i = 0; i < N; i += N / 100) {
-        a[i] = 1;
+    for (i = 0; i < N; i++) {
+        b[i] = i;
+        a[i] = i;
+    }
+    for (i = 0; i < N; i++) {
+        int randPosOne = rand() % N;
+        int randPosTwo = rand() % N;
+        int temp = b[randPosTwo];
+        b[randPosTwo] = b[randPosOne];
+        b[randPosOne] = temp;
     }
 
 
@@ -70,7 +79,7 @@ int main(int argc, char *argv[]) {
     /***************************************/
     for (i = 0; i < M; i++) {
         for (int j = 0; j < N; j++) {
-            count += a[rand() % N];
+            count += a[b[j]];
         }
     }
     /***************************************/
