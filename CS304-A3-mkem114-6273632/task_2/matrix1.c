@@ -19,7 +19,7 @@ double getTime() {
 
 /* for task 1 only */
 void usage(void) {
-    fprintf(stderr, "Usage: cachetest1/2 [--repetitions M] [--array_size N]\n");
+    fprintf(stderr, "Usage: cachetest1/2 [--repetitions M] [--matrix_size N]\n");
     exit(1);
 }
 
@@ -28,12 +28,11 @@ int main(int argc, char *argv[]) {
 
     /* variables for task 1 */
     unsigned int M = 1000;
-    unsigned int N = 256 * 1024;
+    unsigned int N = 1000;
     unsigned int i;
 
     /* declare variables; examples, adjust for task */
     //int *a;
-    double a[100];
 
 
     /* parameter parsing task 1 */
@@ -44,7 +43,7 @@ int main(int argc, char *argv[]) {
                 sscanf(argv[i], "%u", &M);
             else
                 usage();
-        } else if (strcmp(argv[i], "--array_size") == 0) {
+        } else if (strcmp(argv[i], "--matrix_size") == 0) {
             i++;
             if (i < argc)
                 sscanf(argv[i], "%u", &N);
@@ -56,22 +55,33 @@ int main(int argc, char *argv[]) {
 
     /* allocate memory for arrays; examples, adjust for task */
     //a = malloc (N * sizeof(int));
+    double c[N][N] = {0};
+    double a[N][N] = {0};
+    double b[N][N] = {0};
+
 
     /* initialise arrray elements */
+    for (int i = 0; i < N; i += N / 10) {
+        a[i][i] = b[i][i] = c[i][i] = i;
+    }
 
 
     t1 = getTime();
     /* code to be measured goes here */
     /***************************************/
-
-
-
-
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            for (int k = 0; k < N; k++) {
+                c[i][j] = a[i][k] + b[k][j];
+            }
+        }
+    }
     /***************************************/
     t2 = getTime();
 
     /* output; examples, adjust for task */
     printf("time: %6.2f secs\n", (t2 - t1));
+    printf("print out for result: %f", c[N][N]);
 
     /* IMPORTANT: also print the result of the code, e.g. the sum,
      * otherwise compiler might optimise away the code */
