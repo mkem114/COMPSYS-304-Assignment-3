@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <time.h>
+#include <memory.h>
 
 double getTime() {
     struct timeval t;
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 
     /* declare variables; examples, adjust for task */
     //int *a;
-    double a[100];
+    int *a;
 
 
     /* parameter parsing task 1 */
@@ -56,17 +56,23 @@ int main(int argc, char *argv[]) {
 
     /* allocate memory for arrays; examples, adjust for task */
     //a = malloc (N * sizeof(int));
+    a = malloc(N * sizeof(int));
+    int count = 0;
 
     /* initialise arrray elements */
+    for (i = 0; i < N; i += N / 100) {
+        a[i] = 1;
+    }
 
 
     t1 = getTime();
     /* code to be measured goes here */
     /***************************************/
-
-
-
-
+    for (i = 0; i < M; i++) {
+        for (int j = 0; j < N; j++) {
+            count += a[rand() % N];
+        }
+    }
     /***************************************/
     t2 = getTime();
 
@@ -75,9 +81,10 @@ int main(int argc, char *argv[]) {
 
     /* IMPORTANT: also print the result of the code, e.g. the sum,
      * otherwise compiler might optimise away the code */
+    printf("the result for the compiler to not chuck useless code: %d\n", count);
 
     /* free memory; examples, adjust for task */
-    //free(a);
+    free(a);
 
     return 0;
 }

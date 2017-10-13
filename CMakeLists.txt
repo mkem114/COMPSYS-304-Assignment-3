@@ -19,3 +19,5 @@ set(SOURCE_FILES
         CS304-A3-mkem114-6273632/task_2/matrix1.c
         CS304-A3-mkem114-6273632/task_2/matrix2.c
         CS304-A3-mkem114-6273632/task_2/matrix3.c)
+
+add_executable(my_executable ${SOURCE_FILES})
