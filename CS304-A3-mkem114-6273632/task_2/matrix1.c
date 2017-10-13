@@ -55,14 +55,14 @@ int main(int argc, char *argv[]) {
 
     /* allocate memory for arrays; examples, adjust for task */
     //a = malloc (N * sizeof(int));
-    double c[N][N] = {0};
-    double a[N][N] = {0};
-    double b[N][N] = {0};
+    double *c = malloc(N*N* sizeof(double));
+    double *a = malloc(N*N* sizeof(double));
+    double *b = malloc(N*N* sizeof(double));
 
 
     /* initialise arrray elements */
-    for (int i = 0; i < N; i += N / 10) {
-        a[i][i] = b[i][i] = c[i][i] = i;
+    for (int i = 0; i < N*N; i ++) {
+        a[i] = b[i] = c[i] = i;
     }
 
 
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             for (int k = 0; k < N; k++) {
-                c[i][j] = a[i][k] + b[k][j];
+                c[i*N+j] = a[i*N+k] + b[k*N+j];
             }
         }
     }
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
 
     /* output; examples, adjust for task */
     printf("time: %6.2f secs\n", (t2 - t1));
-    printf("print out for result: %f", c[N][N]);
+    printf("print out for result: %f", c[N*N-1]);
 
     /* IMPORTANT: also print the result of the code, e.g. the sum,
      * otherwise compiler might optimise away the code */
