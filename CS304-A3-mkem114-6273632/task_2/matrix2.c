@@ -76,6 +76,7 @@ int main(int argc, char *argv[]) {
         for (j = 0; j < N; j++) {
             a[i][j] = 1;
             b[i][j] = 1;
+            temp[i][j] = 1;
         }
     }
 
@@ -98,7 +99,7 @@ int main(int argc, char *argv[]) {
             for (j = 0; j < N; j++) {
                 sum = 0;
                 for (k = 0; k < N; k++) {
-                    sum = (a[i][k] * b[j][k]);
+                    sum += (a[i][k] * temp[j][k]);
                 }
                 c[i][j] = sum;
             }
