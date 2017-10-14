@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-#include <memory.h>
+#include <string.h>
 
 double getTime() {
 	struct timeval t;
@@ -32,8 +32,9 @@ int main(int argc, char *argv[]) {
 	unsigned int i;
 
 	/* declare variables; examples, adjust for task */
-	//int *a;
     int *a;
+	int *b;
+	int count;
 
 
 	/* parameter parsing task 1 */
@@ -55,10 +56,9 @@ int main(int argc, char *argv[]) {
 
 
 	/* allocate memory for arrays; examples, adjust for task */
-	//a = malloc (N * sizeof(int));
     a = malloc(N * sizeof(int));
-	int *b = malloc(N * sizeof(int));
-    int count = 0;
+	b = malloc(N * sizeof(int));
+	count = 0;
 
 	/* initialise arrray elements */
     for (i = 0; i < N; i += N / 100) {
@@ -87,6 +87,7 @@ int main(int argc, char *argv[]) {
 
 	/* free memory; examples, adjust for task */
     free(a);
+	free(b);
 
 	return 0;
 }
