@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
     double **c;
     double **temp;
     double sum;
+    double swap;
     unsigned int j;
     unsigned int k;
     unsigned int repititions;
@@ -85,7 +86,11 @@ int main(int argc, char *argv[]) {
     for (repititions = 0; repititions < M; repititions++) {
         for (i = 0; i < N; i++) {
             for (j = 0; j < N; j++) {
-                temp[i][j] = b[j][i];
+                if (i + j < N) {
+                    swap = b[i][j];
+                    b[i][j] = temp[j][i];
+                    temp[j][i] = swap;
+                }
             }
         }
 
@@ -93,7 +98,7 @@ int main(int argc, char *argv[]) {
             for (j = 0; j < N; j++) {
                 sum = 0;
                 for (k = 0; k < N; k++) {
-                    sum += a[i][k] * temp[j][k];
+                    sum = (a[i][k] * b[j][k]);
                 }
                 c[i][j] = sum;
             }
@@ -107,7 +112,7 @@ int main(int argc, char *argv[]) {
 
     /* IMPORTANT: also print the result of the code, e.g. the sum,
      * otherwise compiler might optimise away the code */
-    printf("printing result for compiler %d\n", c[0][0]);
+    printf("printing result for compiler %d\n", c[0][1]);
 
     /* free memory; examples, adjust for task */
     for (i = 0; i < N; i++) {
