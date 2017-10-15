@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
 
     /* IMPORTANT: also print the result of the code, e.g. the sum,
      * otherwise compiler might optimise away the code */
-    printf("printing result for compiler %d\n", c[0][1]);
+    printf("printing result for compiler %d\n", c[0][0]);
 
     /* free memory; examples, adjust for task */
     for (i = 0; i < N; i++) {

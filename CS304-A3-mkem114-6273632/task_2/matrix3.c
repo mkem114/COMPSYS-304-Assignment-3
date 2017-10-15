@@ -18,7 +18,7 @@ double getTime() {
 
 /* for task 1 only */
 void usage(void) {
-    fprintf(stderr, "Usage: matrix1/2/3 [--repetitions M] [--matrix_size N]\n");
+    fprintf(stderr, "Usage: matrix1/2/3 [--repetitions M] [--matrix_size N] [--block_size K]\n");
     exit(1);
 }
 
@@ -28,6 +28,7 @@ int main(int argc, char *argv[]) {
     /* variables for task 1 */
     unsigned int M = 5;
     unsigned int N = 1000;
+    unsigned int B = 16;
     unsigned int i;
 
     /* declare variables; examples, adjust for task */
@@ -55,6 +56,12 @@ int main(int argc, char *argv[]) {
                 sscanf(argv[i], "%u", &N);
             else
                 usage();
+        } else if (strcmp(argv[i], "--block_size") == 0) {
+            i++;
+            if (i < argc)
+                sscanf(argv[i], "%u", &B);
+            else
+                usage();
         } else usage();
     }
 
@@ -76,6 +83,7 @@ int main(int argc, char *argv[]) {
         for (j = 0; j < N; j++) {
             a[i][j] = 1;
             b[i][j] = 1;
+            c[i][j] = 0;
             temp[i][j] = 1;
         }
     }
@@ -95,13 +103,17 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        for (i = 0; i < N; i++) {
-            for (j = 0; j < N; j++) {
-                sum = 0;
-                for (k = 0; k < N; k++) {
-                    sum += (a[i][k] * temp[j][k]);
+        for (i = 0; i < N; i += B) {
+            for (j = 0; j < N; j += B) {
+                for (k = 0; k < N; k += B) {
+                    for (int i2 = i; i2 < i + B && i2 < N; i2++) {
+                        for (int j2 = i; j2 < j + B && j2 < N; j2++) {
+                            for (int k2 = k; k2 < k + B && k2 < N; k2++) {
+                                c[i2][j2] += a[i2][k2] * b[k2][j2];
+                            }
+                        }
+                    }
                 }
-                c[i][j] = sum;
             }
         }
     }
@@ -113,7 +125,7 @@ int main(int argc, char *argv[]) {
 
     /* IMPORTANT: also print the result of the code, e.g. the sum,
      * otherwise compiler might optimise away the code */
-    printf("printing result for compiler %d\n", c[0][1]);
+    printf("printing result for compiler %d\n", c[0][0]);
 
     /* free memory; examples, adjust for task */
     for (i = 0; i < N; i++) {
