@@ -40,6 +40,8 @@ int main(int argc, char *argv[]) {
     double swap;
     unsigned int j;
     unsigned int k;
+    unsigned int jj;
+    unsigned int kk;
     unsigned int repititions;
 
     /* parameter parsing task 1 */
@@ -103,15 +105,15 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        for (i = 0; i < N; i += B) {
-            for (j = 0; j < N; j += B) {
-                for (k = 0; k < N; k += B) {
-                    for (int i2 = i; i2 < i + B && i2 < N; i2++) {
-                        for (int j2 = i; j2 < j + B && j2 < N; j2++) {
-                            for (int k2 = k; k2 < k + B && k2 < N; k2++) {
-                                c[i2][j2] += a[i2][k2] * b[k2][j2];
-                            }
+        for (jj = 0; jj < N; jj += B) {
+            for (kk = 0; kk < N; kk += B) {
+                for (i = 0; i < N; i++) {
+                    for (j = jj; j < (N < jj + B ? N : jj + B); j++) {
+                        sum = 0;
+                        for (k = kk; k < (N < kk + B ? N : kk + B); k++) {
+                            sum += a[i][k] * b[k][j];
                         }
+                        c[i][j] = sum;
                     }
                 }
             }
