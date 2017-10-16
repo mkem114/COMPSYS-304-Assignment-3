@@ -88,9 +88,7 @@ int main(int argc, char *argv[]) {
         for (i = 0; i < N; i++) {
             for (j = 0; j < N; j++) {
                 if (i + j < N) {
-                    swap = b[i][j];
-                    b[i][j] = temp[j][i];
-                    temp[j][i] = swap;
+                    temp[j][i] = b[i][j];
                 }
             }
         }

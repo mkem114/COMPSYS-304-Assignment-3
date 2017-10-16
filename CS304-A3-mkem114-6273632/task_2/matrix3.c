@@ -98,9 +98,7 @@ int main(int argc, char *argv[]) {
         for (i = 0; i < N; i++) {
             for (j = 0; j < N; j++) {
                 if (i + j < N) {
-                    swap = b[i][j];
-                    b[i][j] = temp[j][i];
-                    temp[j][i] = swap;
+                    temp[j][i] = b[i][j];
                 }
             }
         }
@@ -111,7 +109,7 @@ int main(int argc, char *argv[]) {
                     for (j = jj; j < (N < jj + B ? N : jj + B); j++) {
                         sum = 0;
                         for (k = kk; k < (N < kk + B ? N : kk + B); k++) {
-                            sum += a[i][k] * b[k][j];
+                            sum += a[i][k] * temp[k][j];
                         }
                         c[i][j] = sum;
                     }
