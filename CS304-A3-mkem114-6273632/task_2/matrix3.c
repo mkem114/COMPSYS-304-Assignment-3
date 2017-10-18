@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <time.h>
 
 double getTime() {
     struct timeval t;
@@ -24,7 +25,6 @@ void usage(void) {
 
 int main(int argc, char *argv[]) {
     double t1, t2;
-
     /* variables for task 1 */
     unsigned int M = 5;
     unsigned int N = 1000;
@@ -35,7 +35,6 @@ int main(int argc, char *argv[]) {
     double **a;
     double **b;
     double **c;
-    double **temp;
     double sum;
     double swap;
     unsigned int j;
@@ -72,12 +71,10 @@ int main(int argc, char *argv[]) {
     a = malloc(N * sizeof(double **));
     b = malloc(N * sizeof(double **));
     c = malloc(N * sizeof(double **));
-    temp = malloc(N * sizeof(double **));
     for (i = 0; i < N; i++) {
         a[i] = malloc(N * sizeof(double));
         b[i] = malloc(N * sizeof(double));
         c[i] = malloc(N * sizeof(double));
-        temp[i] = malloc(N * sizeof(double));
     }
 
     /* initialise arrray elements */
@@ -86,7 +83,6 @@ int main(int argc, char *argv[]) {
             a[i][j] = 1;
             b[i][j] = 1;
             c[i][j] = 0;
-            temp[i][j] = 1;
         }
     }
 
@@ -95,21 +91,13 @@ int main(int argc, char *argv[]) {
     /* code to be measured goes here */
     /***************************************/
     for (repititions = 0; repititions < M; repititions++) {
-        for (i = 0; i < N; i++) {
-            for (j = 0; j < N; j++) {
-                if (i + j < N) {
-                    temp[j][i] = b[i][j];
-                }
-            }
-        }
-
         for (jj = 0; jj < N; jj += B) {
             for (kk = 0; kk < N; kk += B) {
                 for (i = 0; i < N; i++) {
                     for (j = jj; j < (N < jj + B ? N : jj + B); j++) {
                         sum = c[i][j];
                         for (k = kk; k < (N < kk + B ? N : kk + B); k++) {
-                            sum += a[i][k] * temp[k][j];
+                            sum += a[i][k] * b[k][j];
                         }
                         c[i][j] = sum;
                     }
@@ -132,12 +120,10 @@ int main(int argc, char *argv[]) {
         free(a[i]);
         free(b[i]);
         free(c[i]);
-        free(temp[i]);
     }
     free(a);
     free(b);
     free(c);
-    free(temp);
 
     return 0;
 }
