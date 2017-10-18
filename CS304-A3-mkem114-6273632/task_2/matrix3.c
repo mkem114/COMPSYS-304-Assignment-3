@@ -107,7 +107,7 @@ int main(int argc, char *argv[]) {
             for (kk = 0; kk < N; kk += B) {
                 for (i = 0; i < N; i++) {
                     for (j = jj; j < (N < jj + B ? N : jj + B); j++) {
-                        sum = 0;
+                        sum = c[i][j];
                         for (k = kk; k < (N < kk + B ? N : kk + B); k++) {
                             sum += a[i][k] * temp[k][j];
                         }
