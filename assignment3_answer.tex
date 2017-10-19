@@ -1,23 +1,36 @@
-\documentclass[10pt,a4paper,oneside]{article}
+\documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{mdframed}
+\usepackage{pgfplots}
 \usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{environ}
 \usepackage{amsfonts}
 \usepackage{siunitx}
+\usepackage{lastpage}
+\usepackage{titling}
 \usepackage{amssymb}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\pgfplotsset{every tick label/.append style={font=\small}}
 \author{mkem114 - 6273632}
-\title{COMPSYS 304 - Assignment 3 Report}
+\title{CS304 - Assignment 3 Report}
+\pagestyle{fancy}
+\renewcommand{\footrulewidth}{0.4pt}
+\cfoot{Page \thepage/\pageref{LastPage}}
+\chead{\thetitle}
+\lfoot{\theauthor}
+\rfoot{\today}
 \begin{document}
     \maketitle
 
-    \section*{Processor name}
+    \section{Cache measurement}
+    \subsection{Processor name}
     \begin{verbatim}
         Intel Core i7 7500U
     \end{verbatim}
 
-    \section*{Cache sizes}
+    \subsection{Cache sizes}
     There is no L4 cache in this processor, L1 is split by data and instruction. L3 is the only shared cache, there is two of the L2 and both L1s for each physical core. For sizes of each cache refer to Figure ~\ref{cachesize}
     \begin{figure}[h!]
         \begin{mdframed}
@@ -32,35 +45,89 @@
         \label{cachesize}
     \end{figure}
 
-    \section{Cache measurement}
+    \subsection{Cache measurement table}
     \begin{figure}[h!]
-        \begin{mdframed}
+        \begin{center}
             \begin{tabular}{|r|r|r|r|}
                 \hline
-                $N$ repetitions & size of $a$ / bytes& time per iteration / ns & time per iteration / ns \\ \hline
+                $N$ & size of $a$ / bytes& time per iteration / ns & time per iteration / ns \\ \hline
                 & & linear access & random access \\ \hline
-                \num[group-separator={,}]{    1000000    }    &    \num[group-separator={,}]{    8192    }    & 0.43 & 0.58    \\ \hline
-                \num[group-separator={,}]{    500000    }    &    \num[group-separator={,}]{    16384    }    & 0.42 & 0.58    \\ \hline
-                \num[group-separator={,}]{    250000    }    &    \num[group-separator={,}]{    32768    }    & 0.42 & 0.63    \\ \hline
-                \num[group-separator={,}]{    125000    }    &    \num[group-separator={,}]{    65536    }    & 0.43 & 0.75    \\ \hline
-                \num[group-separator={,}]{    62500    }    &    \num[group-separator={,}]{    131072    }    & 0.43 & 0.94    \\ \hline
-                \num[group-separator={,}]{    31250    }    &    \num[group-separator={,}]{    262144    }    & 0.42 & 1.10    \\ \hline
-                \num[group-separator={,}]{    15625    }    &    \num[group-separator={,}]{    524288    }    & 0.42 & 1.51    \\ \hline
-                \num[group-separator={,}]{    7812    }    &    \num[group-separator={,}]{    1048576    }    & 0.43 & 4.07    \\ \hline
-                \num[group-separator={,}]{    3906    }    &    \num[group-separator={,}]{    2097152    }    & 0.48 & 7.43    \\ \hline
-                \num[group-separator={,}]{    1953    }    &    \num[group-separator={,}]{    4194304    }    & 0.50 & 9.33    \\ \hline
-                \num[group-separator={,}]{    976    }    &    \num[group-separator={,}]{    8388608    }    & 0.51 & 10.35    \\ \hline
-                \num[group-separator={,}]{    488    }    &    \num[group-separator={,}]{    16777216    }    & 0.50 & 10.90    \\ \hline
+                \num[group-separator={,}]{    2048    }    &    \num[group-separator={,}]{    8192    }    & 2.4 & 2.38    \\ \hline
+                \num[group-separator={,}]{    4096    }    &    \num[group-separator={,}]{    16384    }    & 2.38 & 2.51    \\ \hline
+                \num[group-separator={,}]{    8192    }    &    \num[group-separator={,}]{    32768    }    & 2.32 & 2.59    \\ \hline
+                \num[group-separator={,}]{    16384    }    &    \num[group-separator={,}]{    65536    }    & 2.33 & 2.96    \\ \hline
+                \num[group-separator={,}]{    32768    }    &    \num[group-separator={,}]{    131072    }    & 2.33 & 3.94    \\ \hline
+                \num[group-separator={,}]{    65536    }    &    \num[group-separator={,}]{    262144    }    & 2.33 & 4.52    \\ \hline
+                \num[group-separator={,}]{    131072    }    &    \num[group-separator={,}]{    524288    }    & 2.57 & 6.19    \\ \hline
+                \num[group-separator={,}]{    262144    }    &    \num[group-separator={,}]{    1048576    }    & 2.76 & 16.61    \\ \hline
+                \num[group-separator={,}]{    524288    }    &    \num[group-separator={,}]{    2097152    }    & 2.87 & 33.65    \\ \hline
+                \num[group-separator={,}]{    1048576    }    &    \num[group-separator={,}]{    4194304    }    & 2.95 & 37.70    \\ \hline
+                \num[group-separator={,}]{    2097152    }    &    \num[group-separator={,}]{    8388608    }    & 2.98 & 41.83    \\ \hline
+                \num[group-separator={,}]{    4194304    }    &    \num[group-separator={,}]{    16777216    }    & 3.00 & 43.49    \\ \hline
+                \num[group-separator={,}]{    8388608    }    &    \num[group-separator={,}]{    33554432    }    & 3.01 & 45.04    \\ \hline
+                \num[group-separator={,}]{    16777216    }    &    \num[group-separator={,}]{    67108864    }    & 3.01 & 45.28    \\ \hline
             \end{tabular}
-        \end{mdframed}
+        \end{center}
         \caption{Results of running cachetest1 and cachetest2}
         \label{cacheresults}
     \end{figure}
 
+    \subsection{Cache measurement chart}
+    See Figure ~\ref{cacheresultsone} and Figure ~\ref{cacheresultstwo}
+    \begin{figure}[h!]
+        \begin{center}
+            \begin{tikzpicture}[scale=1]
+                \begin{axis}[
+                ylabel = time per iteration in ns,
+                xlabel = size of $a$ in bytes,
+                xtick=data,
+                xticklabels={8K,,32K,,128K,,0.5M,,2M,,8M,,32M},
+                xmode=log
+                ]
+                    \addplot table [x=a, y=first, col sep=comma] {CS304A3.csv};\
+
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+        \caption{Time per iteration in nanoseconds over size of $a$ in bytes for cachetest1}
+        \label{cacheresultsone}
+    \end{figure}
+    \begin{figure}[h!]
+        \begin{center}
+            \begin{tikzpicture}[scale=1]
+                \begin{axis}[
+                ylabel = time per iteration in ns,
+                xlabel = size of $a$ in bytes,
+                xtick=data,
+                xticklabels={8K,,32K,,128K,,0.5M,,2M,,8M,,32M},
+                xmode=log
+                ]
+                    \addplot table [x=a, y=second, col sep=comma] {CS304A3.csv};
+                \end{axis}
+            \end{tikzpicture}
+        \end{center}
+        \caption{Time per iteration in nanoseconds over size of $a$ in bytes for cachetest2}
+        \label{cacheresultstwo}
+    \end{figure}
+    \subsection{Differences and similarities}
+    \begin{itemize}
+        \item From 8K and 16K
+        \item 32K till 256K
+        \item The random access and sequential have the same trend curve shape. 512K till 8M because it is to do with the constant cache sizes of the procesor. At 512K (the first stop after exhausting L2 cache) the L2 cache is always full which is why it starts to take more time quite rapidly. The curve significantly slows from 2M till 8M as that is when the L3 cache starts to fill up and run out of space. The time penalty starts to stabilise because the L3 demand starts to stabilise at it approaches 100\% use.
+        \item Both random access and sequential have the same trend curve shape. 16M onwards is four times the L3 cache, the time per iteration in ns won't go up because now almost everything will be memory only. The time penalty for accessing memory is constant per iteration as the percentage of cache misses stabilises so does the average time per iteration..
+        \item Overall except for when both are run on a $8K$ array, cachetest2 is much slower because the $a$ matrix has to be indexed randomly. Loading $a$ in to the cache doesn't make much sense because it's too big for L3, it has to be read from memory and hence the relative time penalty factor.
+    \end{itemize}
+
     \section{Matrix product}
-    As per the assignment specification the matrices were all of size $1000$x$1000$
-    \subsection{Naive implementation}
+    As per the assignment specification the matrices were all of size $1000\times1000$ and to get some more accuracy there was 5 repetitions run. Times given have already been divided by 5.
+    \subsection{Straight forward implementation}
+    Took $3.26s$.\\
+    This implementation requires indexing one of the two matrices to read by rows because the whole column is required to calculate every element of the result matrix. This is slowed down because the speed advantages of cache aren't fully utilised (sequential elements aren't loaded into cache lines) due changing the row index $N$ more times than the column index when 2D matrices in C are indexed by row then by column. \\
     \subsection{Temporary matrix}
+    Took $1.54s$.
     \subsection{Blocking and temporary matrix}
-    I started at a block size of 16
+    Took $1.07s$.\\
+    Note $k=16$ blocks were found to be the fastest for me.\\
+    Instead of element-wise multiplication of a matrix's row and another's column for every element on a resulting matrix; taking a $k\times k$ block of one matrix, summing the element-wise multiplication of it with a $k*N$ subsection of the other matrix then combing the sums in the resulting matrix there is a performance boost.\\
+    This boost arises because the $k\times k\times size=16\times 16\times 8=2048$bytes block, the value of each element $8$bytes can both fit inside L1 cache and stay in there until they are never needed again. The stripe of the other matrix being multiplied $k\times n\times size=16\times 1000\times 8=128000$ bytes can fit inside the L2 cache until it's never needed again thus all of the matrices' elements never have to be loaded from memory more than once.
 \end{document}
