@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
 	count = 0;
 
 	/* initialise arrray elements */
-    for (i = 0; i < N; i += N / 100) {
+	for (i = 0; i < N; i++) {
 		b[i] = i;
 		a[i] = i;
     }

@@ -1,7 +1,10 @@
 \documentclass[10pt,a4paper,oneside]{article}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mdframed}
 \usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{siunitx}
 \usepackage{amssymb}
 \usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
 \author{mkem114 - 6273632}
@@ -9,9 +12,50 @@
 \begin{document}
     \maketitle
 
+    \section*{Processor name}
+    \begin{verbatim}
+        Intel Core i7 7500U
+    \end{verbatim}
+
+    \section*{Cache sizes}
+    There is no L4 cache in this processor, L1 is split by data and instruction. L3 is the only shared cache, there is two of the L2 and both L1s for each physical core. For sizes of each cache refer to Figure ~\ref{cachesize}
+    \begin{figure}[h!]
+        \begin{mdframed}
+            \begin{verbatim}
+                LEVEL1_ICACHE_SIZE 32768
+                LEVEL1_DCACHE_SIZE 32768
+                LEVEL2_CACHE_SIZE 262144
+                LEVEL3_CACHE_SIZE 4194304
+            \end{verbatim}
+        \end{mdframed}
+        \caption{Extract from ``getconf -a | grep CACHE\_SIZE''}
+        \label{cachesize}
+    \end{figure}
+
     \section{Cache measurement}
-    \subsection{Linearly}
-    \subsection{Randomly}
+    \begin{figure}[h!]
+        \begin{mdframed}
+            \begin{tabular}{|r|r|r|r|}
+                \hline
+                $N$ repetitions & size of $a$ / bytes& time per iteration / ns & time per iteration / ns \\ \hline
+                & & linear access & random access \\ \hline
+                \num[group-separator={,}]{    1000000    }    &    \num[group-separator={,}]{    8192    }    & 0.43 & 0.58    \\ \hline
+                \num[group-separator={,}]{    500000    }    &    \num[group-separator={,}]{    16384    }    & 0.42 & 0.58    \\ \hline
+                \num[group-separator={,}]{    250000    }    &    \num[group-separator={,}]{    32768    }    & 0.42 & 0.63    \\ \hline
+                \num[group-separator={,}]{    125000    }    &    \num[group-separator={,}]{    65536    }    & 0.43 & 0.75    \\ \hline
+                \num[group-separator={,}]{    62500    }    &    \num[group-separator={,}]{    131072    }    & 0.43 & 0.94    \\ \hline
+                \num[group-separator={,}]{    31250    }    &    \num[group-separator={,}]{    262144    }    & 0.42 & 1.10    \\ \hline
+                \num[group-separator={,}]{    15625    }    &    \num[group-separator={,}]{    524288    }    & 0.42 & 1.51    \\ \hline
+                \num[group-separator={,}]{    7812    }    &    \num[group-separator={,}]{    1048576    }    & 0.43 & 4.07    \\ \hline
+                \num[group-separator={,}]{    3906    }    &    \num[group-separator={,}]{    2097152    }    & 0.48 & 7.43    \\ \hline
+                \num[group-separator={,}]{    1953    }    &    \num[group-separator={,}]{    4194304    }    & 0.50 & 9.33    \\ \hline
+                \num[group-separator={,}]{    976    }    &    \num[group-separator={,}]{    8388608    }    & 0.51 & 10.35    \\ \hline
+                \num[group-separator={,}]{    488    }    &    \num[group-separator={,}]{    16777216    }    & 0.50 & 10.90    \\ \hline
+            \end{tabular}
+        \end{mdframed}
+        \caption{Results of running cachetest1 and cachetest2}
+        \label{cacheresults}
+    \end{figure}
 
     \section{Matrix product}
     As per the assignment specification the matrices were all of size $1000$x$1000$
@@ -19,33 +63,4 @@
     \subsection{Temporary matrix}
     \subsection{Blocking and temporary matrix}
     I started at a block size of 16
-
-    \section*{Appendix}
-        \subsection*{Hardware used}
-            \begin{verbatim}
-    i7 7500U
-
-    2 physical, 4 logical cores
-
-    Socket Designation: L1 Cache
-    Operational Mode: Write Back
-    Maximum Size: 128 kB (total; 2 cores, separate data and instructions)
-    Associativity: 8-way Set-associative
-
-    Socket Designation: L2 Cache
-    Operational Mode: Write Back
-    Maximum Size: 512 kB
-    Associativity: 4-way Set-associative
-
-    Socket Designation: L3 Cache
-    Operational Mode: Write Back
-    Maximum Size: 4096 kB
-    Associativity: 16-way Set-associative
-            \end{verbatim}
-        \subsection*{Software used}
-            \begin{verbatim}
-    Ubuntu 16.04
-
-    GCC 5.4 with -O1 flag
-            \end{verbatim}
 \end{document}
